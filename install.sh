@@ -27,6 +27,10 @@ fisher nvm thefuck z bilal-bhatti/pure
 # This is a default directory for macOS user accounts but doesn't comes pre-installed
 mkdir $HOME/Sites
 
+# Install plug.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # Set macOS preferences
 # We will run this last because this will reload the shell
 #source .macos

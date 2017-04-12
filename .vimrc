@@ -34,16 +34,3 @@ set hlsearch
 set mouse=a
 set wildmenu
 
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
-~
