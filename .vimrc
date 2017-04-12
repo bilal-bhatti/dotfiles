@@ -32,3 +32,4 @@ set number
 set hlsearch
 set mouse=a
 set wildmenu
+
