@@ -20,6 +20,7 @@ brew 'thefuck'
 brew 'fswatch'
 brew 'go'
 brew 'awscli'
+brew 'tree'
 
 # Development
 
