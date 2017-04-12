@@ -21,6 +21,7 @@ brew 'fswatch'
 brew 'go'
 brew 'awscli'
 brew 'tree'
+brew 'stow'
 
 # Development
 
