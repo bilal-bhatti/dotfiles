@@ -22,6 +22,8 @@ brew 'go'
 brew 'awscli'
 brew 'tree'
 brew 'stow'
+brew 'macvim'
+brew 'cmake'
 
 # Development
 

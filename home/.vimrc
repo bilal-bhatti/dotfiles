@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes for comment
 Plug 'dag/vim-fish'
 Plug 'kien/ctrlp.vim'
+Plug 'Valloric/YouCompleteMe'
 
 " Add plugins to &runtimepath
 call plug#end()
