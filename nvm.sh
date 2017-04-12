@@ -1,4 +1,4 @@
-#!/usr/local/bin/fish
+#!/bin/sh
 
 echo "Setting up NVM..."
 
