@@ -22,7 +22,7 @@ antigen apply
 
 export NVM_DIR="$HOME/.nvm"
 
-export GOPATH=/Volumes/TerraDrive/Users/bilal/Projects/Go
+export GOPATH=$HOME/Projects/Go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOPATH/bin
 
