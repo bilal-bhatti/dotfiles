@@ -18,6 +18,8 @@ brew 'git'
 brew 'wget'
 brew 'thefuck'
 brew 'fswatch'
+brew 'go'
+brew 'awscli'
 
 # Development
 
