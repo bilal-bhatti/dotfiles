@@ -7,7 +7,6 @@ set path+=**
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes for comment
-
 Plug 'dag/vim-fish'
 Plug 'kien/ctrlp.vim'
 
@@ -33,4 +32,3 @@ set number
 set hlsearch
 set mouse=a
 set wildmenu
-
