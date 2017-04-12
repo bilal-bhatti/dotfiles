@@ -16,6 +16,8 @@ brew 'coreutils'
 # Install Binaries
 brew 'git'
 brew 'wget'
+brew 'thefuck'
+brew 'fswatch'
 
 # Development
 

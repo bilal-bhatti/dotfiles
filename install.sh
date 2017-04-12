@@ -17,6 +17,12 @@ brew bundle
 # Make ZSH the default shell environment
 #chsh -s $(which zsh)
 
+# Install fisherman
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
+
+# Install fish plugins
+fisher nvm thefuck z bilal-bhatti/pure
+
 # Create a Sites directory
 # This is a default directory for macOS user accounts but doesn't comes pre-installed
 mkdir $HOME/Sites
