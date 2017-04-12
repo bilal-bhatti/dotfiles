@@ -1,0 +1,11 @@
+.git
+.gitignore
+.gitmodules
+.stow-local-ignore
+Brewfile
+LICENSE
+README.md
+dircolors-solarized
+install.sh
+vim.md
+zshrc
