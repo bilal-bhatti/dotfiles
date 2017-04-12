@@ -4,3 +4,5 @@ function fish_user_key_bindings
 end
 
 set pure_symbol_prompt "~>"
+set pure_user_host_location 1
+
