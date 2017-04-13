@@ -22,7 +22,7 @@ brew 'go'
 brew 'awscli'
 brew 'tree'
 brew 'stow'
-brew 'macvim'
+brew 'macvim', args: ['with-override-system-vim']
 brew 'cmake'
 
 # Development
