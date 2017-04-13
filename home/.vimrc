@@ -10,6 +10,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'dag/vim-fish'
 Plug 'kien/ctrlp.vim'
 Plug 'Valloric/YouCompleteMe'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'maksimr/vim-jsbeautify'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -33,4 +35,20 @@ set number
 set hlsearch
 set mouse=a
 set wildmenu
+
+# map JsBeautify to ctl+f
+map <c-f> :call JsBeautify()<cr>
+
+# set , as <leader>
+let mapleader=","
+
+# map : to ;
+nnoremap ; :
+
+# set mappings for YouCompleteMe commands
+let g:ycm_goto_buffer_command = 'new-or-existing-tab'
+nnoremap <leader>gt :YcmCompleter GoTo<CR>
+nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+
 
