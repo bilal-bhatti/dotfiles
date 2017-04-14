@@ -12,6 +12,8 @@ Plug 'kien/ctrlp.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'maksimr/vim-jsbeautify'
+Plug 'tpope/vim-vinegar'
+Plug 'roman/golden-ratio'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -36,19 +38,35 @@ set hlsearch
 set mouse=a
 set wildmenu
 
-# map JsBeautify to ctl+f
+" map JsBeautify to ctl+f
 map <c-f> :call JsBeautify()<cr>
 
-# set , as <leader>
+" set , as <leader>
 let mapleader=","
 
-# map : to ;
+" map : to ;
 nnoremap ; :
 
-# set mappings for YouCompleteMe commands
+" set mappings for YouCompleteMe commands
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 nnoremap <leader>gt :YcmCompleter GoTo<CR>
 nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
 
+" configure netrw
+"let g:netrw_banner = 0
+"let g:netrw_liststyle = 3
+"let g:netrw_browse_split = 4
+"let g:netrw_altv = 1
+"let g:netrw_winsize = 25
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
+
+" Map pane navigation 
+noremap <C-I> <C-W>k<C-W>_
+noremap <C-K> <C-W>j<C-W>_
+noremap <C-L> <C-W>l<C-W>_
+noremap <C-J> <C-W>h<C-W>_
 
