@@ -16,6 +16,14 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+;; init exec-path from shell path
+;;(use-package exec-path-from-shell
+;;  :ensure t)
+;;(when (memq window-system '(mac ns x))
+;;  (exec-path-from-shell-initialize))
+(setenv "PATH" (concat (getenv "PATH") ":/Users/bilal/Projects/Go/bin"))
+(setq exec-path (append exec-path '("/Users/bilal/Projects/Go/bin")))
+
 ;;(eval-when-compile
 ;;  (require 'use-package))
 
@@ -25,10 +33,11 @@
   (load custom-file))
 
 ;; set shell for emacs to bash
-(setq explicit-shell-file-name "/bin/bash")
-(setq shell-file-name "bash")
+;;(setq explicit-shell-file-name "/bin/bash")
+;;(setq shell-file-name "bash")
 
 ;; If in gui, or else
+(setq ns-pop-up-frames nil)
 (if (display-graphic-p)
     (progn
       ;; disable scroll bars
@@ -37,11 +46,11 @@
 
       ;; set default font
       (let ((fontset "fontset-default"))
-	(set-fontset-font fontset 'latin '("Source Code Pro"))
+	(set-fontset-font fontset 'latin '("Source Code Pro for Powerline"))
 	(set-face-attribute 'default nil
 			    :font fontset
 			    :weight 'semi-bold
-			    :height 120))
+			    :height 150))
       (defun get-default-height ()
 	(/ (- (display-pixel-height) 75)
 	   (frame-char-height)))
@@ -51,6 +60,7 @@
   )
 
 ;; set appearance settings
+(fset 'yes-or-no-p 'y-or-n-p)
 (setq inhibit-startup-screen t)
 (x-focus-frame nil)
 (setq visible-bell 1)
@@ -59,6 +69,8 @@
 (setq c-basic-offset 4) ; indents 4 chars
 (setq tab-width 4)          ; and 4 char wide for TAB
 (setq indent-tabs-mode nil) ; And force use of spaces
+(setq vc-follow-symlinks t)
+(setq scroll-margin 5 scroll-conservatively 9999 scroll-step 1)
 
 ;; start: load solarized theme
 ;; from the main solarized repo
@@ -77,15 +89,17 @@
   :init
   (load-theme 'solarized-dark t))
 
+;; change cursor color depending on mode
+(setq evil-emacs-state-cursor '("#DC322F" box))
+(setq evil-normal-state-cursor '("#859900" box))
+(setq evil-visual-state-cursor '("#CB4B16" box))
+(setq evil-insert-state-cursor '("#DC322F" bar))
+(setq evil-replace-state-cursor '("#DC322F" bar))
+(setq evil-operator-state-cursor '("#DC322F" hollow))
+
 ;; setup parentheses highlighging
 (show-paren-mode 1)
 (setq show-paren-style 'parenthesis)
-
-;; init exec-path from shell path
-(use-package exec-path-from-shell
-  :ensure t)
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
 
 ;; setup multiple-cursors
 ;;(use-package multiple-cursors :ensure t)
@@ -106,6 +120,7 @@
     "b" 'switch-to-buffer
     "k" 'kill-buffer)
   )
+(setq evil-leader/in-all-states 1)
 
 ;; configure evil mode
 (use-package evil
@@ -160,6 +175,12 @@
   (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
   )
 
+;; install evil-tabs
+(use-package evil-tabs
+  :ensure t
+  :config
+  (global-evil-tabs-mode t))
+
 ;; double rainbow... what does it all mean !!!!
 (use-package rainbow-delimiters
   :ensure t
@@ -180,7 +201,6 @@
 ;; solarized, though they do still work with gruvbox.
 ;;(outline-minor-mode t)
 ;;(outline-minor-mode nil)
-
 
 ; setup golden-ration
 (use-package golden-ratio
@@ -212,8 +232,6 @@
 		select-window-9)
 	      )
 )
-
-
 
 ; configure additional packages
 ; install evil-surround
@@ -247,9 +265,11 @@
     "pa" 'helm-projectile-find-file-in-known-projects
     ))
 
-(use-package avy :ensure t)
-(global-set-key (kbd "C-;") 'avy-goto-char)
-(global-set-key (kbd "C-'") 'avy-goto-char-2)
+(use-package avy
+  :ensure t
+  :config
+  (evil-leader/set-key "," 'avy-goto-char-2)
+  )
 
 (use-package yasnippet
   :ensure t
@@ -259,8 +279,7 @@
   (add-hook 'prog-mode-hook #'yas-minor-mode)
   )
 
-(use-package tern
-  :ensure t)
+(use-package tern :ensure t)
 
 (use-package auto-complete
   :ensure t
@@ -295,10 +314,12 @@
 (use-package ac-dabbrev :ensure t)
 (use-package fish-mode :ensure t)
 
-(setq vc-follow-symlinks t)
-
 ; fix for solarized-dark bug in iterm2
 ; meant to the be last line in .emacs
 ;(custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
 
 (use-package esup :ensure t)
+ 
+(load "server")
+(unless (server-running-p) (server-start))
+
