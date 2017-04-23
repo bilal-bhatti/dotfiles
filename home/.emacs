@@ -107,8 +107,9 @@
 ;; configure evil mode
 (use-package evil
   :ensure t
-  :init
-  (evil-mode t))
+  :config
+  (evil-mode t)
+  (evil-select-search-module 'evil-search-module 'evil-search))
 
 ;; https://github.com/davvil/.emacs.d/blob/master/init.el
 (defun minibuffer-keyboard-quit ()
@@ -126,6 +127,7 @@
 (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+(define-key evil-ex-search-keymap (kbd "<escape>") 'minibuffer-keyboard-quit)
 (global-set-key [escape] 'evil-exit-emacs-state)
 
 ;; evil: bring back basic emacs command
@@ -222,8 +224,16 @@
   :init
   (helm-mode 1)
   :config
-  (setq helm-autoresize-mode t)
-  (setq helm-buffer-max-length 40))
+  (setq helm-autoresize-mode 1)
+  (setq helm-buffer-max-length 40)
+  (setq helm-buffers-fuzzy-matching t)
+  (evil-leader/set-key "l" 'helm-mini))
+
+(use-package helm-flx :ensure t :init (helm-flx-mode +1))
+(setq helm-flx-for-helm-find-files t
+      helm-flx-for-helm-locate t)
+
+(use-package helm-fuzzier :ensure t :config (helm-fuzzier-mode 1))
 
 (use-package projectile
   :ensure t
