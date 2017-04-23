@@ -108,36 +108,43 @@
 (use-package evil
   :ensure t
   :init
-  (evil-mode t)
-  :config
-  (progn
-    (define-key evil-normal-state-map [escape] 'keyboard-quit)
-    (define-key evil-visual-state-map [escape] 'keyboard-quit)
-    (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-    (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-    (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-    (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-    (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+  (evil-mode t))
 
-    ;; evil: bring back basic emacs command
-    (define-key evil-normal-state-map "\C-y" 'yank)
-    (define-key evil-insert-state-map "\C-y" 'yank)
-    (define-key evil-visual-state-map "\C-y" 'yank)
-    (define-key evil-insert-state-map "\C-e" 'end-of-line)
-    ;;(define-key evil-normal-state-map "\C-w" 'evil-delete)
-    ;;(define-key evil-insert-state-map "\C-w" 'evil-delete)
-    ;;(define-key evil-insert-state-map "\C-r" 'search-backward)
-    ;;(define-key evil-visual-state-map "\C-w" 'evil-delete)
+;; https://github.com/davvil/.emacs.d/blob/master/init.el
+(defun minibuffer-keyboard-quit ()
+  (interactive)
+  (if (and delete-selection-mode transient-mark-mode-hook mark-active)
+      (seq deactivate-mark t)
+    (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
+    (abort-recursive-edit)))
 
-    (define-key evil-motion-state-map (kbd ":") 'evil-repeat-find-char)
-    (define-key evil-motion-state-map (kbd ";") 'evil-ex)
-    (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-    (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
-    (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-    (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
-    )
-  )
+;; set escape to exit various states instead of C-g
+(define-key evil-normal-state-map [escape] 'keyboard-quit)
+(define-key evil-visual-state-map [escape] 'keyboard-quit)
+(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+(global-set-key [escape] 'evil-exit-emacs-state)
 
+;; evil: bring back basic emacs command
+(define-key evil-normal-state-map "\C-y" 'yank)
+(define-key evil-insert-state-map "\C-y" 'yank)
+(define-key evil-visual-state-map "\C-y" 'yank)
+(define-key evil-insert-state-map "\C-e" 'end-of-line)
+;;(define-key evil-normal-state-map "\C-w" 'evil-delete)
+;;(define-key evil-insert-state-map "\C-w" 'evil-delete)
+;;(define-key evil-insert-state-map "\C-r" 'search-backward)
+;;(define-key evil-visual-state-map "\C-w" 'evil-delete)
+
+(define-key evil-motion-state-map (kbd ":") 'evil-repeat-find-char)
+(define-key evil-motion-state-map (kbd ";") 'evil-ex)
+(define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+(define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+(define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+(define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+ 
 (use-package evil-multiedit
   :ensure t
   :config
