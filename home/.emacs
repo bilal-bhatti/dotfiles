@@ -12,29 +12,27 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+;; ensure use-package 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
 
 ;; init exec-path from shell path
-;;(use-package exec-path-from-shell
-;;  :ensure t)
+;;(use-package exec-path-from-shell :ensure t)
 ;;(when (memq window-system '(mac ns x))
 ;;  (exec-path-from-shell-initialize))
 (setenv "PATH" (concat (getenv "PATH") ":/Users/bilal/Projects/Go/bin"))
 (setq exec-path (append exec-path '("/Users/bilal/Projects/Go/bin")))
-
-;;(eval-when-compile
-;;  (require 'use-package))
 
 ;; set custom file for customizations
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
 
-;; set shell for emacs to bash
-;;(setq explicit-shell-file-name "/bin/bash")
-;;(setq shell-file-name "bash")
+;; no backup files
+(setq make-backup-files nil)
 
 ;; If in gui, or else
 (setq ns-pop-up-frames nil)
@@ -50,11 +48,11 @@
 	(set-face-attribute 'default nil
 			    :font fontset
 			    :weight 'semi-bold
-			    :height 150))
+			    :height 130))
       (defun get-default-height ()
-	(/ (- (display-pixel-height) 75)
+	(/ (- (display-pixel-height) 100)
 	   (frame-char-height)))
-      (add-to-list 'default-frame-alist '(width . 125))
+      (add-to-list 'default-frame-alist '(width . 120))
       (add-to-list 'default-frame-alist (cons 'height (get-default-height)))
       )
   )
@@ -66,21 +64,13 @@
 (setq visible-bell 1)
 (global-linum-mode 1)
 (setq linum-format "%4d \u2502")
+(global-hl-line-mode)
 (setq c-basic-offset 4) ; indents 4 chars
 (setq tab-width 4)          ; and 4 char wide for TAB
 (setq indent-tabs-mode nil) ; And force use of spaces
 (setq vc-follow-symlinks t)
 (setq scroll-margin 5 scroll-conservatively 9999 scroll-step 1)
-
-;; start: load solarized theme
-;; from the main solarized repo
-;;(set-frame-parameter nil 'background-mode 'dark)
-;;(set-terminal-parameter nil 'background-mode 'dark)
-;;(setq frame-background-mode 'dark)
-;;(mapc 'frame-set-background-mode (frame-list))
-;;((add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
-;;(load-theme 'solarized t)
-;; end: load solarized theme
+(use-package hlinum :ensure t :init (hlinum-activate))
 
 ;; load solarized theme from elpa
 (use-package solarized-theme
@@ -101,13 +91,6 @@
 (show-paren-mode 1)
 (setq show-paren-style 'parenthesis)
 
-;; setup multiple-cursors
-;;(use-package multiple-cursors :ensure t)
-;;(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-;;(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;;(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;;(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
 ;; enable evil leader, before evil mode
 (use-package evil-leader
   :ensure t
@@ -117,7 +100,6 @@
   (evil-leader/set-leader ",")
   (evil-leader/set-key
     "e" 'find-file
-    "b" 'switch-to-buffer
     "k" 'kill-buffer)
   )
 (setq evil-leader/in-all-states 1)
@@ -141,7 +123,7 @@
     (define-key evil-normal-state-map "\C-y" 'yank)
     (define-key evil-insert-state-map "\C-y" 'yank)
     (define-key evil-visual-state-map "\C-y" 'yank)
-    ;;(define-key evil-insert-state-map "\C-e" 'end-of-line)
+    (define-key evil-insert-state-map "\C-e" 'end-of-line)
     ;;(define-key evil-normal-state-map "\C-w" 'evil-delete)
     ;;(define-key evil-insert-state-map "\C-w" 'evil-delete)
     ;;(define-key evil-insert-state-map "\C-r" 'search-backward)
@@ -165,14 +147,14 @@
   (define-key evil-normal-state-map (kbd "M-D") 'evil-multiedit-match-symbol-and-prev)
   (define-key evil-visual-state-map (kbd "M-D") 'evil-multiedit-match-and-prev)
   (define-key evil-insert-state-map (kbd "M-d") 'evil-multiedit-toggle-marker-here)
-  (define-key evil-visual-state-map (kbd "C-M-D") 'evil-multiedit-restore)
-  (define-key evil-motion-state-map (kbd "RET") 'evil-multiedit-toggle-or-restrict-region)
-  (define-key evil-multiedit-state-map (kbd "RET") 'evil-multiedit-toggle-or-restrict-region)
-  (define-key evil-multiedit-state-map (kbd "C-n") 'evil-multiedit-next)
-  (define-key evil-multiedit-state-map (kbd "C-p") 'evil-multiedit-prev)
-  (define-key evil-multiedit-insert-state-map (kbd "C-n") 'evil-multiedit-next)
-  (define-key evil-multiedit-insert-state-map (kbd "C-p") 'evil-multiedit-prev)
-  (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
+  ;;(define-key evil-visual-state-map (kbd "C-M-D") 'evil-multiedit-restore)
+  ;;(define-key evil-motion-state-map (kbd "RET") 'evil-multiedit-toggle-or-restrict-region)
+  ;;(define-key evil-multiedit-state-map (kbd "RET") 'evil-multiedit-toggle-or-restrict-region)
+  ;;(define-key evil-multiedit-state-map (kbd "C-n") 'evil-multiedit-next)
+  ;;(define-key evil-multiedit-state-map (kbd "C-p") 'evil-multiedit-prev)
+  ;;(define-key evil-multiedit-insert-state-map (kbd "C-n") 'evil-multiedit-next)
+  ;;(define-key evil-multiedit-insert-state-map (kbd "C-p") 'evil-multiedit-prev)
+  ;;(evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
   )
 
 ;; install evil-tabs
@@ -196,11 +178,6 @@
   :ensure t
   :init
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode))
-
-;; If you comment these two lines out, rainbow delimiters no longer work with
-;; solarized, though they do still work with gruvbox.
-;;(outline-minor-mode t)
-;;(outline-minor-mode nil)
 
 ; setup golden-ration
 (use-package golden-ratio
@@ -233,20 +210,13 @@
 	      )
 )
 
-; configure additional packages
-; install evil-surround
-; http://wikemacs.org/wiki/Evil for more plugins
-
 (use-package helm
   :ensure t
-  :defer t
-  :config
+  :init
   (helm-mode 1)
+  :config
   (setq helm-autoresize-mode t)
-  (setq helm-buffer-max-length 40)
-  (global-set-key (kbd "M-x") #'helm-M-x)
-  (define-key helm-map (kbd "S-SPC") 'helm-toggle-visible-mark)
-  (define-key helm-find-files-map (kbd "C-k") 'helm-find-files-up-one-level))
+  (setq helm-buffer-max-length 40))
 
 (use-package projectile
   :ensure t
@@ -255,15 +225,12 @@
   (projectile-global-mode))
 
 (use-package helm-projectile
-  :bind (("C-S-P" . helm-projectile-switch-project)
-         :map evil-normal-state-map
-         ("C-p" . helm-projectile))
   :ensure t
+  :init
+  (helm-projectile-on)
+  :bind(:map evil-normal-state-map ("C-p" . helm-projectile))
   :config
-  (evil-leader/set-key
-    "ps" 'helm-projectile-ag
-    "pa" 'helm-projectile-find-file-in-known-projects
-    ))
+  (evil-leader/set-key "f" 'helm-projectile))
 
 (use-package avy
   :ensure t
@@ -279,8 +246,6 @@
   (add-hook 'prog-mode-hook #'yas-minor-mode)
   )
 
-(use-package tern :ensure t)
-
 (use-package auto-complete
   :ensure t
   :init
@@ -288,37 +253,11 @@
   :config
   (ac-config-default))
 
-(use-package tern-auto-complete :ensure t)
-
 (use-package js2-mode :ensure t :defer t)
-
-(use-package js2-refactor
-  :ensure t
-  :defer t
-  :init
-  (add-hook 'js2-mode-hook #'js2-refactor-mode))
-
-(add-hook 'js-mode-hook (lambda () (tern-mode t)))
-(eval-after-load 'tern
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
-
 (use-package go-mode :ensure t)
-
-(setq custom-file (expand-file-name "go-autocomplete.el" user-emacs-directory))
-   (when (file-exists-p custom-file)
-     (load custom-file))
-
 (use-package go-autocomplete :ensure t)
 (use-package ac-dabbrev :ensure t)
 (use-package fish-mode :ensure t)
-
-; fix for solarized-dark bug in iterm2
-; meant to the be last line in .emacs
-;(custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
-
-(use-package esup :ensure t)
  
 (load "server")
 (unless (server-running-p) (server-start))
