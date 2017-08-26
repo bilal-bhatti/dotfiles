@@ -24,8 +24,9 @@ brew 'tree'
 brew 'stow'
 brew 'macvim', args: ['with-override-system-vim']
 brew 'cmake'
-brew 'the_silver_searcher'
 brew 'lnav'
+brew 'fasd'
+brew 'httpie'
 
 # Install some fonts
 cask 'font-source-code-pro'
