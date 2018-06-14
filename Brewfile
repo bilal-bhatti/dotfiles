@@ -6,9 +6,7 @@ tap 'homebrew/bundle'
 # Install ZSH
 brew 'zsh'
 brew 'zsh-completions'
-
-# Install fish shell
-brew 'fish'
+brew 'zplug'
 
 # Install GNU core utilities (those that come with macOS are outdated)
 brew 'coreutils'
@@ -22,11 +20,12 @@ brew 'go'
 brew 'awscli'
 brew 'tree'
 brew 'stow'
-brew 'macvim', args: ['with-override-system-vim']
 brew 'cmake'
 brew 'lnav'
 brew 'fasd'
 brew 'httpie'
+brew 'python@2'
+brew 'maven'
 
 # Install some fonts
 cask 'font-source-code-pro'
