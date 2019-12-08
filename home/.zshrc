@@ -67,16 +67,18 @@ export EDITOR=/usr/local/bin/nvim
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# init various 
+# init various commands
 eval "$(fnm env --multi)"
 eval "$(direnv hook zsh)"
 eval "$(scmpuff init -s)"
-eval $(thefuck --alias)
+eval "$(thefuck --alias)"
 
-
-for file in ~/.zshrc.d/*; do
-    source "$file"
-done
+if [[ -d ~/.zshrc.d ]]
+then
+    for file in ~/.zshrc.d/*; do
+        source "$file"
+    done
+fi
 
 
 
