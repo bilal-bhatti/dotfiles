@@ -1,31 +1,42 @@
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-setopt appendhistory autocd beep extendedglob nomatch notify
-bindkey -e
-# End of lines configured by zsh-newuser-install
+## History file configuration
+[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=10000
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+## History command configuration
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt inc_append_history     # add commands to HISTFILE in order of execution
+setopt share_history          # share command history data
 
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export PATH=/usr/local/opt/python/libexec/bin:$PATH
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-export PATH=/usr/local/opt/python2/bin:$PATH
+source ~/.zplug/init.zsh
 
-# begin: zplug - Z Shell plugins using zplug
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
+# Make sure to use double quotes
+zplug "zsh-users/zsh-history-substring-search"
 
-zplug "lukechilds/zsh-nvm"
-zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:"pure.zsh", from:github, as:theme
-zplug "zsh-users/zsh-autosuggestions", from:github
-zplug "zsh-users/zsh-history-substring-search", from:github
-zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2
-zplug "joel-porquet/zsh-dircolors-solarized", hook-load:"setupsolarized dircolors.ansi-universal"
-zplug "ndbroadbent/scm_breeze", hook-build:"$ZPLUG_HOME/repos/ndbroadbent/scm_breeze/install.sh"
+# Can manage everything e.g., other person's zshrc
+zplug "tcnksm/docker-alias", use:zshrc
 
+# Supports oh-my-zsh plugins and the like
+zplug "plugins/git", from:oh-my-zsh
+
+# Set the priority when loading
+# e.g., zsh-syntax-highlighting must be loaded
+# after executing compinit command and sourcing other plugins
+# (If the defer tag is given 2 or above, run after compinit command)
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+# Load theme file
+zplug mafredri/zsh-async, from:github
+zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
+
+# Can manage local plugins
+#zplug "~/.zsh", from:local
+
+# Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
@@ -33,25 +44,40 @@ if ! zplug check --verbose; then
     fi
 fi
 
+# Then, source plugins and add commands to $PATH
+#zplug load --verbose
 zplug load
 
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
+# Initialize z
+. /usr/local/etc/profile.d/z.sh
+
+# Configure history search
+source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-export HISTORY_SUBSTRING_SEARCH_FUZZY=fuzzy_words
+export HISTORY_SUBSTRING_SEARCH_FUZZY="t"
+# history search
 
-[ -s ~/.scm_breeze/scm_breeze.sh ] && source ~/.scm_breeze/scm_breeze.sh
-# end: zplug
+eval "$(direnv hook zsh)"
 
-eval "$(fasd --init auto)"
-alias ls='ls --color'
+alias dcv="docker-compose -f ./docker-compose-volumes.yml"
+alias dca="docker-compose -f ./docker-compose-applications.yml"
+alias dci="docker-compose -f ./docker-compose-infrastructure.yml"
 
-if [ -d "/usr/local/android-tools" ] ; then
-     export PATH="/usr/local/android-tools:$PATH"
-fi
+# fnm
+eval "$(fnm env --multi)"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias vi=nvim
+alias vim=nvim
+
+export VISUAL=/usr/local/bin/nvim
+export EDITOR=/usr/local/bin/nvim
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(scmpuff init -s)"
+
+eval $(thefuck --alias)
+
 

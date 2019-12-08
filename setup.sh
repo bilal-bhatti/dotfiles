@@ -11,7 +11,18 @@ fi
 brew update
 
 # Install all our dependencies with bundle (See Brewfile)
-brew bundle
+brew install stow \
+git \
+wget \
+thefuck \
+fswatch \
+golang \
+awscli \
+tree \
+cmake \
+httpie
+
+brew tap homebrew/cask-fonts && brew cask install font-source-code-pro font-source-code-pro-for-powerline
 
 echo "Setting up your Mac..."
 
@@ -19,11 +30,3 @@ echo "Setting up your Mac..."
 find ./ -name ".DS_Store" -depth -exec rm {} \;
 
 stow home --no-folding
-
-
-echo "Setting up NVM..."
-
-# Install nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-
-nvm install node
