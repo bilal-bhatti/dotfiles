@@ -17,10 +17,22 @@ wget \
 thefuck \
 fswatch \
 golang \
+dep \
 awscli \
 tree \
 cmake \
-httpie
+ctags \
+httpie \
+scmpuff \
+fzf \
+z \
+fnm \
+direnv \
+neovim \
+zsh-history-substring-search \
+docker-credential-helper-ecr \
+highlight \
+ranger
 
 brew tap homebrew/cask-fonts && brew cask install font-source-code-pro font-source-code-pro-for-powerline
 

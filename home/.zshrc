@@ -59,25 +59,24 @@ bindkey '^[[B' history-substring-search-down
 export HISTORY_SUBSTRING_SEARCH_FUZZY="t"
 # history search
 
-eval "$(direnv hook zsh)"
-
-alias dcv="docker-compose -f ./docker-compose-volumes.yml"
-alias dca="docker-compose -f ./docker-compose-applications.yml"
-alias dci="docker-compose -f ./docker-compose-infrastructure.yml"
-
-# fnm
-eval "$(fnm env --multi)"
-
-alias vi=nvim
-alias vim=nvim
+alias vi=/usr/local/bin/nvim
+alias vim=/usr/local/bin/nvim
 
 export VISUAL=/usr/local/bin/nvim
 export EDITOR=/usr/local/bin/nvim
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# init various 
+eval "$(fnm env --multi)"
+eval "$(direnv hook zsh)"
 eval "$(scmpuff init -s)"
-
 eval $(thefuck --alias)
+
+
+for file in ~/.zshrc.d/*; do
+    source "$file"
+done
+
 
 
