@@ -1,43 +1,36 @@
 #!/bin/sh
 
-echo "Setting up Homebrew..."
-
-# Check for Homebrew and install if we don't have it
-if test ! $(which brew); then
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-
-# Update Homebrew recipes
+echo "Update brew forumulas..."
 brew update
 
 # Install all our dependencies with bundle (See Brewfile)
-brew install stow \
-zplug \
-git \
-wget \
-thefuck \
-fswatch \
-golang \
-dep \
-awscli \
-tree \
+brew install awscli \
 cmake \
 ctags \
-httpie \
-scmpuff \
-fzf \
-z \
-fnm \
+dep \
 direnv \
-neovim \
-zsh-history-substring-search \
 docker-credential-helper-ecr \
+fnm \
+fswatch \
+fzf \
+git \
+golang \
 highlight \
-ranger
+httpie \
+neovim \
+ranger \
+scmpuff \
+stow \
+thefuck \
+tree \
+wget \
+z \
+zplug \
+zsh-history-substring-search
 
 brew tap homebrew/cask-fonts && brew cask install font-source-code-pro font-source-code-pro-for-powerline
 
-echo "Setting up your Mac..."
+echo "Setting up symlinks..."
 
 # Remove junk files
 find ./ -name ".DS_Store" -depth -exec rm {} \;
