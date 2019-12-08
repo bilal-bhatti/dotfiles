@@ -12,6 +12,7 @@ brew update
 
 # Install all our dependencies with bundle (See Brewfile)
 brew install stow \
+zplug \
 git \
 wget \
 thefuck \
