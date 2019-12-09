@@ -32,7 +32,15 @@ brew tap homebrew/cask-fonts && brew cask install font-source-code-pro font-sour
 
 echo "Setting up symlinks..."
 
+# Install vim-plug
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # Remove junk files
 find ./ -name ".DS_Store" -depth -exec rm {} \;
 
 stow home --no-folding
+
+# Install neovim plugins
+nvim +PlugInstall
+
