@@ -11,5 +11,5 @@ cd .dotfiles
 ```
 
 # Install VS Code
-Install neovim extension
-Setup keybindings
+* Install neovim extension
+* Setup keybindings
