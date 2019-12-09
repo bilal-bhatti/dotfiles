@@ -26,7 +26,8 @@ tree \
 wget \
 z \
 zplug \
-zsh-history-substring-search
+zsh-history-substring-search \
+golangci/tap/golangci-lint
 
 brew tap homebrew/cask-fonts && brew cask install font-source-code-pro font-source-code-pro-for-powerline
 
