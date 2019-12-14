@@ -44,5 +44,3 @@ let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
 
 au FileType go nmap <leader>gt :GoDeclsDir<cr>
-
-

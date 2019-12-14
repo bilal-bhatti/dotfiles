@@ -16,7 +16,7 @@ export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 # Make sure to use double quotes
-zplug "zsh-users/zsh-history-substring-search"
+#zplug "zsh-users/zsh-history-substring-search"
 
 # Can manage everything e.g., other person's zshrc
 zplug "tcnksm/docker-alias", use:zshrc
