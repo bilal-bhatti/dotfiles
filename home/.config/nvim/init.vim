@@ -43,4 +43,8 @@ let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
 
-au FileType go nmap <leader>gt :GoDeclsDir<cr>
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+map <Leader>s <Plug>(easymotion-s2)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
