@@ -15,6 +15,9 @@ setopt share_history          # share command history data
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
+# configure pyenv
+zplug "mattberther/zsh-pyenv"
+
 # Make sure to use double quotes
 #zplug "zsh-users/zsh-history-substring-search"
 
@@ -69,17 +72,11 @@ export EDITOR=/usr/local/bin/nvim
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # init various commands
-eval "$(fnm env --multi)"
-eval "$(direnv hook zsh)"
-eval "$(scmpuff init -s)"
-eval "$(thefuck --alias)"
-
 if [[ -d ~/.zshrc.d ]]
 then
     for file in ~/.zshrc.d/*; do
         source "$file"
     done
 fi
-
 
 
