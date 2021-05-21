@@ -18,8 +18,7 @@ source $ZPLUG_HOME/init.zsh
 # Make sure to use double quotes
 #zplug "zsh-users/zsh-history-substring-search"
 
-# Can manage everything e.g., other person's zshrc
-zplug "tcnksm/docker-alias", use:zshrc
+#zplug "tcnksm/docker-alias", use:zshrc
 
 # Supports oh-my-zsh plugins and the like
 zplug "plugins/git", from:oh-my-zsh
@@ -32,18 +31,18 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 # Load theme file
 zplug mafredri/zsh-async, from:github
-zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
+# zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
 
 # Can manage local plugins
 #zplug "~/.zsh", from:local
 
 # Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
+#if ! zplug check --verbose; then
+#    printf "Install? [y/N]: "
+#    if read -q; then
+#        echo; zplug install
+#    fi
+#fi
 
 # Then, source plugins and add commands to $PATH
 #zplug load --verbose
@@ -60,19 +59,19 @@ bindkey '^[[B' history-substring-search-down
 export HISTORY_SUBSTRING_SEARCH_FUZZY="t"
 # history search
 
-alias vi=/usr/local/bin/nvim
-alias vim=/usr/local/bin/nvim
+#alias vi=/usr/local/bin/nvim
+#alias vim=/usr/local/bin/nvim
 
 export VISUAL=/usr/local/bin/nvim
 export EDITOR=/usr/local/bin/nvim
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#alias vi=/usr/local/bin/emacsclient
+alias vi=/usr/local/bin/nvim 
+#alias vim=/usr/local/bin/emacsclient
+alias vim=/usr/local/bin/nvim
 
-# init various commands
-eval "$(fnm env --multi)"
-eval "$(direnv hook zsh)"
-eval "$(scmpuff init -s)"
-eval "$(thefuck --alias)"
+
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [[ -d ~/.zshrc.d ]]
 then
