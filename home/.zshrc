@@ -65,20 +65,14 @@ export HISTORY_SUBSTRING_SEARCH_FUZZY="t"
 export VISUAL=/usr/local/bin/nvim
 export EDITOR=/usr/local/bin/nvim
 
-#alias vi=/usr/local/bin/emacsclient
-alias vi=/usr/local/bin/nvim 
-#alias vim=/usr/local/bin/emacsclient
-alias vim=/usr/local/bin/nvim
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+# init various commands
 if [[ -d ~/.zshrc.d ]]
 then
     for file in ~/.zshrc.d/*; do
         source "$file"
     done
 fi
-
 
 
